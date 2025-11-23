@@ -62,7 +62,7 @@ Then set Preview Features = true.
 
 ---
 
-### ✅ Why This Matters
+###  Why This Matters
 
 - Switching to Gemini 3 Pro enables access to the latest and most powerful reasoning model available in the CLI. 
 - This gives you better results, especially for complex prompts and multi-step tasks.
