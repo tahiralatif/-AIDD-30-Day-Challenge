@@ -1,6 +1,6 @@
 # Gemini 3.0 — Research & Practical Guide
 
-## Part A — Research Questions (Short Answers)
+## Part A Research Questions (Short Answers)
 
 ### 1. What new improvements were introduced in Gemini 3.0?  
 - **Deep Think mode**: Enhances reasoning depth for multi-step and complex problems. :contentReference[oaicite:0]{index=0}  
@@ -38,13 +38,13 @@ In Gemini CLI, run:
 
 /model
 
-2. In the model selection dialog that appears, choose **Gemini 3 Pro** (or `gemini-3-pro-preview`) if available. :contentReference[oaicite:0]{index=0}  
+2. In the model selection dialog that appears, choose **Gemini 3 Pro** (or `gemini-3-pro-preview`) if available. 
 
 ![enable model](./screenshots/select-model.PNG)
 
 
 
-3. If you don't see Gemini 3, enable Preview Features: run `/settings` and turn **Preview Features** to `true`. :contentReference[oaicite:1]{index=1} 
+3. If you don't see Gemini 3, enable Preview Features: run `/settings` and turn **Preview Features** to `true`. 
 
 /settings
 ![ run `/settings` and turn Preview Features](./screenshots/setting.PNG) 
@@ -52,7 +52,7 @@ In Gemini CLI, run:
 Then set Preview Features = true.
 
 
-4. After updating, check the CLI’s status bar or footer to confirm that **“PRO”** is shown, indicating Gemini 3 is active. :contentReference[oaicite:2]{index=2}  
+4. After updating, check the CLI’s status bar or footer to confirm that **“PRO”** is shown, indicating Gemini 3 is active. 
 
 ![check the CLI’s status bar or footer to confirm that PRO](./screenshots/enable.PNG) 
 
@@ -66,5 +66,5 @@ Then set Preview Features = true.
 
 ### ✅ Why This Matters
 
-- Switching to Gemini 3 Pro enables access to the latest and most powerful reasoning model available in the CLI. :contentReference[oaicite:3]{index=3}  
+- Switching to Gemini 3 Pro enables access to the latest and most powerful reasoning model available in the CLI. 
 - This gives you better results, especially for complex prompts and multi-step tasks.
