@@ -1,4 +1,4 @@
-# Gemini 3.0 — Research & Practical Guide
+# Gemini 3.0 Research & Practical Guide
 
 ## Part A Research Questions (Short Answers)
 
@@ -23,8 +23,8 @@
 - Enhances **document and spatial reasoning**: not just OCR, but understanding complex layouts, pointing, and trajectories. 
 
 ### 4. Name any two developer tools introduced with Gemini 3.0.  
-- **Google Antigravity** — An “agent-first” development platform that lets AI agents plan and execute coding tasks. 
-- **Gemini CLI** — A command-line interface tool to run Gemini 3 workflows, make shell calls, and build agentic tooling. 
+- **Google Antigravity** An “agent-first” development platform that lets AI agents plan and execute coding tasks. 
+- **Gemini CLI** A command-line interface tool to run Gemini 3 workflows, make shell calls, and build agentic tooling. 
 
 ---
 
