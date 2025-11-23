@@ -55,12 +55,7 @@ In Gemini CLI, run:
 Then set Preview Features = true.
 
 
-4. After updating, check the CLI’s status bar or footer to confirm that **“PRO”** is shown, indicating Gemini 3 is active. 
-
-![check the CLI’s status bar or footer to confirm that PRO](./screenshots/enable.PNG) 
-
-
-### 📷 Screenshot Included
+4. After updating, check the CLI’s status bar or footer to confirm that **“PRO”** is shown, indicating Gemini 3 is active.
 
 ![Gemini CLI Model Enabled Screenshot](./screenshots/enable.PNG)  
 *This screenshot shows that the Gemini CLI model has been successfully switched to Gemini 3 Pro.*
