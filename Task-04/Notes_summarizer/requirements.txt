@@ -1,0 +1,11 @@
+openai-agents
+python-dotenv
+PyMuPDF
+python-pptx
+python-docx
+pandas
+easyocr
+Pillow
+yt-dlp
+# whisper (Note: this can be a high dependency. Consider lighter alternatives or specific installations if performance is an issue.)
+streamlit

@@ -1,0 +1,20 @@
+[project]
+name = "notes-summarizer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "easyocr>=1.7.2",
+    "openai-agents>=0.6.1",
+    "pandas>=2.3.3",
+    "pillow>=12.0.0",
+    "pymupdf>=1.26.6",
+    "python-docx>=1.2.0",
+    "python-dotenv>=1.2.1",
+    "python-pptx>=1.0.2",
+    "questionary>=2.1.1",
+    "rich>=14.2.0",
+    "streamlit>=1.51.0",
+    "yt-dlp>=2025.11.12",
+]
