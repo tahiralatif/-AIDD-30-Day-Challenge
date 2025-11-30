@@ -333,31 +333,13 @@ with tabs[0]: # Upload Tab
 def get_current_processed_content():
     return st.session_state.get("processed_content", {}).get("content", "")
 
-async def call_agent_and_display(task_type: str, display_area, quiz_type: str = "Multiple Choice", num_questions: int = 10, chat_query: str = None):
-    content = get_current_processed_content()
-    if not content:
-        display_area.error("No content processed yet. Please upload or paste content in the 'Upload' tab.")
-        return None
-
-    with display_area.spinner(f"Generating {task_type.replace('_', ' ')}..."):
-        try:
-            if task_type == "generate_quiz":
-                result = await run_agent(task_type, content, quiz_type, num_questions)
-            elif task_type == "chat":
-                result = await run_agent(task_type, content, chat_query=chat_query)
-            else:
-                result = await run_agent(task_type, content)
-
-            if result:
-                display_area.success(f"{task_type.replace('_', ' ').title()} generated successfully!")
-                display_area.markdown(result)
-                return result
-            else:
-                display_area.error(f"Failed to generate {task_type.replace('_', ' ')}.")
-                return None
-        except Exception as e:
-            display_area.error(f"An error occurred: {e}")
-            return None
+async def run_agent_async(task_type: str, content: str, quiz_type: str = "Multiple Choice", num_questions: int = 10, chat_query: str = None):
+    if task_type == "generate_quiz":
+        return await run_agent(task_type, content, quiz_type, num_questions)
+    elif task_type == "chat":
+        return await run_agent(task_type, content, chat_query=chat_query)
+    else:
+        return await run_agent(task_type, content)
 
 with tabs[1]: # Summary Tab
     st.header("Generate Insights from Your Content")
@@ -370,14 +352,67 @@ with tabs[1]: # Summary Tab
         col1, col2 = st.columns(2)
         with col1:
             if st.button("Generate Short Summary"):
-                asyncio.run(call_agent_and_display("short_summary", summary_display_area))
+                content = get_current_processed_content()
+                if content:
+                    with summary_display_area.spinner("Generating short summary..."):
+                        try:
+                            result = asyncio.run(run_agent_async("short_summary", content))
+                            if result:
+                                summary_display_area.success("Short summary generated successfully!")
+                                summary_display_area.markdown(result)
+                            else:
+                                summary_display_area.error("Failed to generate short summary.")
+                        except Exception as e:
+                            summary_display_area.error(f"An error occurred: {e}")
+                else:
+                    summary_display_area.error("No content processed yet.")
+
             if st.button("Generate Mindmap-style Bullet Summary"):
-                asyncio.run(call_agent_and_display("mindmap_summary", summary_display_area))
+                content = get_current_processed_content()
+                if content:
+                    with summary_display_area.spinner("Generating mindmap summary..."):
+                        try:
+                            result = asyncio.run(run_agent_async("mindmap_summary", content))
+                            if result:
+                                summary_display_area.success("Mindmap summary generated successfully!")
+                                summary_display_area.markdown(result)
+                            else:
+                                summary_display_area.error("Failed to generate mindmap summary.")
+                        except Exception as e:
+                            summary_display_area.error(f"An error occurred: {e}")
+                else:
+                    summary_display_area.error("No content processed yet.")
         with col2:
             if st.button("Generate Detailed Concept Breakdown"):
-                asyncio.run(call_agent_and_display("detailed_summary", summary_display_area))
+                content = get_current_processed_content()
+                if content:
+                    with summary_display_area.spinner("Generating detailed summary..."):
+                        try:
+                            result = asyncio.run(run_agent_async("detailed_summary", content))
+                            if result:
+                                summary_display_area.success("Detailed summary generated successfully!")
+                                summary_display_area.markdown(result)
+                            else:
+                                summary_display_area.error("Failed to generate detailed summary.")
+                        except Exception as e:
+                            summary_display_area.error(f"An error occurred: {e}")
+                else:
+                    summary_display_area.error("No content processed yet.")
             if st.button("Identify 5 Common Student Doubts"):
-                asyncio.run(call_agent_and_display("student_doubts", summary_display_area))
+                content = get_current_processed_content()
+                if content:
+                    with summary_display_area.spinner("Generating student doubts..."):
+                        try:
+                            result = asyncio.run(run_agent_async("student_doubts", content))
+                            if result:
+                                summary_display_area.success("Student doubts generated successfully!")
+                                summary_display_area.markdown(result)
+                            else:
+                                summary_display_area.error("Failed to generate student doubts.")
+                        except Exception as e:
+                            summary_display_area.error(f"An error occurred: {e}")
+                else:
+                    summary_display_area.error("No content processed yet.")
     else:
         st.warning("Please upload or paste content in the '📤 Upload' tab first to get started.")
 
@@ -388,7 +423,20 @@ with tabs[2]: # Quiz Tab
         quiz_type = st.radio("Choose Quiz Type:", ("Multiple Choice", "True/False"), key="quiz_type_radio", horizontal=True)
         quiz_display_area = st.container()
         if st.button("Brother, Generate 10 MCQs for Me"):
-            asyncio.run(call_agent_and_display("generate_quiz", quiz_display_area, quiz_type, 10))
+            content = get_current_processed_content()
+            if content:
+                with quiz_display_area.spinner(f"Generating {quiz_type} quiz..."):
+                    try:
+                        result = asyncio.run(run_agent_async("generate_quiz", content, quiz_type=quiz_type, num_questions=10))
+                        if result:
+                            quiz_display_area.success("Quiz generated successfully!")
+                            quiz_display_area.markdown(result)
+                        else:
+                            quiz_display_area.error("Failed to generate quiz.")
+                    except Exception as e:
+                        quiz_display_area.error(f"An error occurred: {e}")
+            else:
+                quiz_display_area.error("No content processed yet.")
     else:
         st.warning("Please upload or paste content in the '📤 Upload' tab first to create a quiz.")
 
@@ -416,17 +464,26 @@ with tabs[3]: # Chat (RAG) Tab
             # Generate and display assistant response
             with st.chat_message("assistant"):
                 chat_display_area = st.empty()
-                agent_response = asyncio.run(call_agent_and_display("chat", chat_display_area, chat_query=chat_query))
-                
-                if agent_response:
-                    st.session_state.messages.append({"role": "assistant", "content": agent_response})
+                content = get_current_processed_content()
+                if content:
+                    with chat_display_area.spinner("Thinking..."):
+                        try:
+                            agent_response = asyncio.run(run_agent_async("chat", content, chat_query=chat_query))
+                            if agent_response:
+                                chat_display_area.markdown(agent_response)
+                                st.session_state.messages.append({"role": "assistant", "content": agent_response})
+                            else:
+                                agent_response = "I'm sorry, but I encountered an error. Please try asking in a different way."
+                                chat_display_area.markdown(agent_response)
+                                st.session_state.messages.append({"role": "assistant", "content": agent_response})
+                        except Exception as e:
+                            agent_response = f"An error occurred: {e}"
+                            chat_display_area.error(agent_response)
+                            st.session_state.messages.append({"role": "assistant", "content": agent_response})
                 else:
-                    # If agent fails, provide a default response
-                    agent_response = "I'm sorry, but I encountered an error. Please try asking in a different way."
+                    agent_response = "No content processed to chat with."
+                    chat_display_area.warning(agent_response)
                     st.session_state.messages.append({"role": "assistant", "content": agent_response})
-                
-                # Rerun to update the chat display area with the final response
-                # st.rerun()
 
     else:
         st.warning("Please upload or paste content in the '📤 Upload' tab to start a chat session.")
