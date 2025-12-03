@@ -42,8 +42,9 @@ To start your CLI agent, type the command for your chosen agent. For example, if
 ```bash
 gemini
 ```
-
 Upon starting, you will see a folder structure similar to this:
+
+
 ![Project Structure](./images/project-structure.PNG)
 
 To verify that the CLI agent has started successfully, type `/sp`. If you see a list of `sp.` commands, your project has been initialized correctly.
